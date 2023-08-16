@@ -6,6 +6,7 @@ class RestaurantsController < ApplicationController
   end
   # User story 2: A visitor can add a new restaurant, and be redirected to the show view of that new restaurant.
   # GET "restaurants/new" and POST "restaurants"
+  # A visitor can see the details of a restaurant, with all the reviews related to the restaurant.
   def new
     @restaurant = Restaurant.new
   end
