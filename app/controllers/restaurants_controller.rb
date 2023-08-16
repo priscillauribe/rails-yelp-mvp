@@ -1,4 +1,5 @@
 class RestaurantsController < ApplicationController
+  before_action :set_restaurant, only: %i[ show ]
   # User story 1: A visitor can see the list of all restaurants: GET /restaurants
   def index
     @restaurants = Restaurant.all
@@ -13,10 +14,11 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    # @restaurant = Restaurant.new(restaurants_params)
+    # raise
+    @restaurant = Restaurant.new(restaurant_params)
 
     if @restaurant.save
-      redirect_to @restaurant, notice: "Your restaurant was created."
+      redirect_to restaurant_path(@restaurant), notice: "Your restaurant was created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -25,10 +27,10 @@ class RestaurantsController < ApplicationController
   private
 
   def set_restaurant
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    @restaurant = Restaurant.find(params[:id])
   end
 
-  def review_params
-    params.require(:review).permit(:content)
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :category)
   end
 end
